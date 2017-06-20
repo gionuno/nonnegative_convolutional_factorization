@@ -14,16 +14,16 @@ import matplotlib.image  as img;
 
 from nncf import *;
 
-L = 4;
-K = 9;
+L = 5;
+K = 7;
 
 a = scio.loadmat("frey_rawface.mat")['ff']/255.0;
 
-X = np.zeros((200,28,20));
+X = np.zeros((250,28,20));
 for i in range(X.shape[0]):
     X[i] = a[:,i].reshape((28,20));
 
-test = learner(X,L*L,K);
+test = learner_divergence(X,L*L,K);
 
 it = 0;
 while it < 100:
@@ -40,7 +40,7 @@ for i in range(L):
         axarr[i,j].grid(False)
 plt.show()
 
-H,f = test.step_H(X[1],100);
+H,f = test.step_H(X[14],100);
 print f;
 f,axarr = plt.subplots(L,L);
 for i in range(L):
@@ -61,4 +61,3 @@ for i in range(L):
         axarr[i,j].set_yticklabels([]);
         axarr[i,j].grid(False)
 plt.show()
-
