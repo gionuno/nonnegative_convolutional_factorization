@@ -5,13 +5,17 @@ This is a more specific case of Nonnegative Matrix Factorization.
 
 Now we have L filters {w_l}, and we want to minimize:
 
-E(x,y) = sum_t x_t * log(x_t/y_t) - x_t + y_t
+E(x,y) = sum_t x_t * log(x_t/y_t) - x_t + y_t (a KL-Divergence)
+
+or
+
+E(x,y) = sum_t (x_t-y_t)^2 (Euclidean distance)
 
 where y = sum_{l=1}^L conv(h_l,w_l,'full').
 
 Like in NMF, this minimization is done first on {h_l}, the base images, and then on {w_l}.
 
-So, for a single image the multiplicative rules are:
+So, for a single image the multiplicative rules are (e.g. Euclidean case):
 
 h_l^{t+1} = h_l^t * corr(x,w_l^t,'valid') / corr(y^t,w_l^t,'valid')
 
