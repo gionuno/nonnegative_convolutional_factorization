@@ -76,10 +76,10 @@ class learner_divergence:
     
     def step_H(self,x,T):
         H = rd.rand(self.L,x.shape[0]-self.K+1,x.shape[1]-self.K+1);
+        denH = get_corr(self.o,self.w);
         for t in range(T):
             y = get_conv(H,self.w);
             numH = get_corr(x / y, self.w);
-            denH = get_corr(self.o,self.w);
             H = H * numH / denH;
         return H, divergence(x,get_conv(H,self.w));
     
